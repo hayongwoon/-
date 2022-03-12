@@ -1,0 +1,18 @@
+def solution(n, lost, reserve):
+    lost2 = [r for r in lost if r not in reserve] #0개인 사람
+    reserve2 = [l for l in reserve if l not in lost] #2개 갖고 있는 사람
+    
+    lost2.sort()
+    reserve2.sort()
+    print(lost2, reserve2)
+    
+    for val in reserve2: #2개인 사람의 번호로
+        if val - 1 in lost2:
+            lost2.remove(val-1)
+        
+        elif val + 1 in lost2:
+            lost2.remove(val+1)
+
+        
+    answer = n - len(lost2)
+    return answer
