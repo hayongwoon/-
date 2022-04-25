@@ -1,0 +1,29 @@
+import math
+
+#1 progresses, speeds 두가지의 리스트로 periods list를 만든다. 
+ #ex) 1번 예제 [7,3,9] 2번 예제 [5,10,1,1,20,1]
+
+#2 periods 리스트 가공 [5,10,1,1,20,1] -> [5,10,10,10,20,20]    
+
+#3 가공한 [5,10,10,10,20,20] 와 set and sorted를 한 [5,10,20]로 갯수 파악하여(count함수) answer list에 append
+
+def solution(progresses, speeds):
+    answer = []
+    periods = []
+    for i, j in zip(progresses, speeds):
+        period = math.ceil((100-i)/j)
+        periods.append(period)
+    
+    i=0
+    for j in range(1, len(periods)):
+        if periods[i] > periods[j]:
+            periods[j] = periods[i]
+        i += 1
+        
+    preperiods = periods
+    periods=sorted(set(periods))
+    for i in periods:
+        cnt = preperiods.count(i)
+        answer.append(cnt)
+        
+    return answer
