@@ -1,0 +1,8 @@
+def solution(sizes):
+    more = []
+    less = []
+    for i in sizes:
+        more.append(max(i))
+        less.append(min(i))
+    answer = max(more) * max(less)    
+    return answer
