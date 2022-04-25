@@ -1,0 +1,17 @@
+import math
+
+
+def solution(s):
+    answer = ''
+    if len(s) % 2 == 0:
+        left_idx = math.floor(len(s) / 2)
+        right_idx = math.ceil(len(s) / 2) + 1
+
+        answer = s[left_idx - 1] + s[right_idx - 1]
+
+    else:
+        center_idx = len(s) // 2
+        answer.join(s[center_idx])
+        answer = s[center_idx]
+
+    return answer
