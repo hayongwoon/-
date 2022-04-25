@@ -1,0 +1,42 @@
+def solution(n, arr1, arr2):
+    new_arr1 = []
+    for i in arr1:
+        a = bin(i)[2:]  # 이진수는 ob가 붙는 str 타입으로 반환
+
+        if len(a) < n:
+            for _ in range(n - len(a)):
+                a = '0' + a
+        new_arr1.append(a)
+
+    new_arr2 = []
+    for j in arr2:
+        b = bin(j)[2:]  # 이진수는 ob가 붙는 str 타입으로 반환
+
+        if len(b) < n:
+            for _ in range(n - len(b)):
+                b = '0' + b
+        new_arr2.append(b)
+
+    answer = []
+    for k in range(n):
+        line = ''
+        for l in range(n):
+            if new_arr1[k][l] == '0' and new_arr2[k][l] == '0':
+                line += '0'
+            else:
+                line += '1'
+
+        answer.append(line)
+
+    real_answer = []
+    for x in answer:
+        ch_line = ''
+        for y in x:
+            if y == '1':
+                ch_line += '#'
+            else:
+                ch_line += ' '
+
+        real_answer.append(ch_line)
+
+    return real_answer
