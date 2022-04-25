@@ -1,0 +1,28 @@
+def solution(board, moves):
+    board3 = []
+    for i in range(len(board)):
+        board2 = []
+        for list in board:
+            board2.append(list[i])
+        board3.append(board2)
+        
+    answer = 0
+    basket = []
+    for j in moves:
+        move = j - 1
+        select_line = board3[move]
+        for k in select_line:
+            if k != 0:
+                basket.append(k)
+                board3[move].remove(k)
+                try:
+                    if basket[-1] == basket[-2]:
+                        basket.pop()
+                        basket.pop()
+                        answer += 2
+                except:
+                    pass
+
+                break
+        
+    return answer
