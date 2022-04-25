@@ -1,9 +1,10 @@
 def solution(n):
     answer = ''
-
+    
+    #나머지를 계속 문자열로 넣어주면 앞뒤 반전(3진법)을 만들어준다. 몫이 1이 될 때 까지 나누어 준다!  
     while n >= 1:
         n, rest = divmod(n, 3) # 두 수를 나누어 몫과 나머지를 tuple형태로 반환
-        answer += str(rest)
+        answer += str(rest) 
 
     answer = int(answer, 3) #int(x, base=10) 기본 디폴트가 10진수 이고 3진법으로 변환해주는 코드
 
