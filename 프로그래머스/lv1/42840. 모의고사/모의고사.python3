@@ -1,0 +1,25 @@
+def solution(answers):
+    a = [1,2,3,4,5] * 2000
+    b = [2,1,2,3,2,4,2,5] * 1250
+    c = [3,3,1,1,2,2,4,4,5,5] * 1000
+    count1 = 0
+    count2 = 0
+    count3 = 0
+    
+    for i, j, m, k in zip(a, b, c, answers):
+        if i == k :
+            count1 += 1
+        if j == k :
+            count2 += 1
+        if m == k :
+            count3 += 1
+            
+    answer = []
+    result = [count1, count2, count3]
+    for i, v in enumerate(result):
+        if v//max(result) == 1:
+            answer.append(i+1)
+        
+    
+    
+    return answer
