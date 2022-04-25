@@ -1,0 +1,19 @@
+import heapq
+#정렬을 따로 하지 않아도 push, pop을 할때 알아서 정렬이 됨
+
+def solution(scoville, K):
+    answer = 0
+    heapq.heapify(scoville)
+    
+    while len(scoville) != 1:
+        first_min = heapq.heappop(scoville) + (heapq.heappop(scoville)*2)
+        heapq.heappush(scoville, first_min)
+
+        answer += 1
+        if K <= scoville[0]:
+            break
+
+    if scoville[0] < K:
+        return -1
+        
+    return answer
