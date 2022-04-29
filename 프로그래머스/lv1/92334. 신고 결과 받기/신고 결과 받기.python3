@@ -1,0 +1,24 @@
+from collections import defaultdict
+
+
+def solution(id_list, report, k):
+    set_report = set(report)
+
+    answer = [0] * len(id_list)
+    reported_cnt = defaultdict(int)
+    users_reported_me_list = defaultdict(set)
+
+    for i in set_report:
+        do_report_man, be_reproted_man = i.split()
+
+        reported_cnt[be_reproted_man] += 1
+        users_reported_me_list[do_report_man].add(be_reproted_man)
+
+
+    for name, count in reported_cnt.items():
+        if count >= k:
+            for idx, val in enumerate(id_list):
+                if name in users_reported_me_list[val]:
+                    answer[idx] += 1
+                    
+    return answer
