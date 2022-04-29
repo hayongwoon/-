@@ -1,0 +1,9 @@
+def solution(x):
+    hashad = 0
+    for i in str(x):
+        hashad += int(i)
+    
+    if x % hashad:
+        return False
+        
+    return True
