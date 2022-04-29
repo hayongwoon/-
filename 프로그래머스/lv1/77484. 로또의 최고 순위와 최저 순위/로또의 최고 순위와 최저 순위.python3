@@ -1,0 +1,20 @@
+def solution(lottos, win_numbers):
+    correct_cnt = 0
+    zero_cnt = 0
+    for i in lottos:
+        if i and i in win_numbers:
+            correct_cnt += 1
+
+        if not(i):
+            zero_cnt += 1
+
+
+    min_rank = 7 - correct_cnt
+    max_rank = 7 - (correct_cnt + zero_cnt)
+    
+    if min_rank == 7:
+        min_rank = 6
+    if max_rank == 7:
+        max_rank = 6
+    
+    return [max_rank, min_rank]
