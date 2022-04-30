@@ -1,0 +1,18 @@
+def is_prime_num(n):
+    for i in range(2, int(n**0.5)+1): # n의 제곱근을 정수화 시켜준 후 + 1
+        if n % i == 0:
+            return False
+
+    return True
+
+from itertools import combinations
+
+
+def solution(nums):
+    answer = 0
+    combi_3nums_list = list(combinations(nums, 3))
+    for i in combi_3nums_list:
+        if is_prime_num(sum(i)):
+            answer += 1
+
+    return answer
