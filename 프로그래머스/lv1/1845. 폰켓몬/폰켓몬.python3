@@ -1,0 +1,7 @@
+def solution(nums):
+    answer = len(nums) // 2
+    set_nums = set(nums)
+    if len(set_nums) < answer:
+        return len(set_nums)
+    
+    return answer
