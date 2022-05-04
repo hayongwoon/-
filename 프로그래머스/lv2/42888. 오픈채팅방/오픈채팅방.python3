@@ -1,0 +1,29 @@
+def solution(record):
+    answer = []
+    id_nick_dic = {}
+    user_id_list = []
+    for i in record:
+        log = i.split()
+        action = log[0]
+        user_id = log[1]
+        if action != 'Leave':  #마지막 Enter, Change 이면 값을 넣어줘서 닉네임 업데이트
+            nickname = log[2]
+
+            id_nick_dic[user_id] = nickname
+
+        if action == 'Enter':
+            answer_state = f"{user_id}님이 들어왔습니다."
+            answer.append(answer_state)
+            user_id_list.append(user_id)
+
+        if action == 'Leave':
+            answer_state = f"{user_id}님이 나갔습니다."
+            answer.append(answer_state)
+            user_id_list.append(user_id)
+
+    real_answer = []
+    for id, ans in zip(user_id_list, answer):
+        new_ans = ans.replace(id, id_nick_dic[id])
+        real_answer.append(new_ans)
+
+    return real_answer
