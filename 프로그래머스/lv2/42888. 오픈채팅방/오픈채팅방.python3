@@ -21,9 +21,8 @@ def solution(record):
             answer.append(answer_state)
             user_id_list.append(user_id)
 
-    real_answer = []
-    for id, ans in zip(user_id_list, answer):
-        new_ans = ans.replace(id, id_nick_dic[id])
-        real_answer.append(new_ans)
+    for idx, val in enumerate(user_id_list):
+        answer[idx] = answer[idx].replace(val, id_nick_dic[val])
 
-    return real_answer
+
+    return answer
