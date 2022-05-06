@@ -1,0 +1,17 @@
+def solution(numbers, target):
+    dfs = [0]
+    idx = 1
+    for j, i in enumerate(numbers):
+        for _ in range(2**j):
+            pre_idx = (idx - 1) // 2
+            dfs.append(dfs[pre_idx]+i)
+            idx += 1
+
+            pre_idx = (idx - 2) // 2
+            dfs.append(dfs[pre_idx]-i)
+            idx += 1
+
+    result = dfs[-2**len(numbers):]
+    answer = result.count(target)
+
+    return answer
