@@ -1,0 +1,14 @@
+def solution(phone_book):
+    answer = True
+    dic = {}
+    for i in phone_book:
+        dic[i] = 1
+    
+    for i in phone_book:
+        phone_num = ''
+        for j in i:
+            phone_num += j
+            if phone_num in dic and phone_num != i: #자기랑 다르면서 해당 값이 key값에 있다면
+                answer = False
+                
+    return answer
