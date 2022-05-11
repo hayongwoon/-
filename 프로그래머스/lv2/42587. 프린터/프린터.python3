@@ -1,32 +1,18 @@
-# 2,1,3,2,1  -> []
-# 1,3,2,1,2  -> []
-# 3,2,1,2,1  -> []
-# 2,1,2,1    -> [3]
-# 1,2,1      -> [3,2]
-# 2,1,1      -> [3,2]
-# 1,1        -> [3,2,2]
-# 1          -> [3,2,2,1]
-#            -> [3,2,2,1,1]
-
 from collections import deque
 
 
 def solution(priorities, location):
+    answer = 0
     pri_idx = [(val, idx) for idx, val in enumerate(priorities)]
 
-    target = pri_idx[location]
     deq = deque(pri_idx)
-    new_list = []
     while len(deq):
         last = deq.popleft()
-        if len(deq):
-            if last[0] >= max(deq)[0]:
-                new_list.append(last)
-            else:
-                deq.append(last)
+        if deq and last[0] < max(deq)[0]: #deq에 값이 있고, 맨 앞에 값이 뒤에 있는 맥스 값도가 작으면
+            deq.append(last)
         else:
-            new_list.append(last)
-
-    for idx, val in enumerate(new_list):
-        if val == target:
-            return idx+1
+            answer += 1
+            if last[1] == location:
+                break
+    
+    return answer
