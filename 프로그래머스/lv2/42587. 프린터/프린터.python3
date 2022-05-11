@@ -1,0 +1,35 @@
+# 2,1,3,2,1  -> []
+# 1,3,2,1,2  -> []
+# 3,2,1,2,1  -> []
+# 2,1,2,1    -> [3]
+# 1,2,1      -> [3,2]
+# 2,1,1      -> [3,2]
+# 1,1        -> [3,2,2]
+# 1          -> [3,2,2,1]
+#            -> [3,2,2,1,1]
+
+from collections import deque
+
+
+def solution(priorities, location):
+    pri_idx = [(val, idx) for idx, val in enumerate(priorities)]
+
+    target = pri_idx[location]
+    deq = deque(pri_idx)
+    deq1 = deque(priorities)
+    new_list = []
+    while len(deq):
+        last = deq.popleft()
+        last1 = deq1.popleft()
+        if len(deq):
+            if last[0] >= max(deq1):
+                new_list.append(last)
+            else:
+                deq.append(last)
+                deq1.append(last1)
+        else:
+            new_list.append(last)
+
+    for idx, val in enumerate(new_list):
+        if val == target:
+            return idx+1
