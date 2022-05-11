@@ -16,17 +16,14 @@ def solution(priorities, location):
 
     target = pri_idx[location]
     deq = deque(pri_idx)
-    deq1 = deque(priorities)
     new_list = []
     while len(deq):
         last = deq.popleft()
-        last1 = deq1.popleft()
         if len(deq):
-            if last[0] >= max(deq1):
+            if last[0] >= max(deq)[0]:
                 new_list.append(last)
             else:
                 deq.append(last)
-                deq1.append(last1)
         else:
             new_list.append(last)
 
