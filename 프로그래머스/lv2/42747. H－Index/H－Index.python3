@@ -1,0 +1,21 @@
+#정렬 후 [6,5,3,3,1,0]일 때, 가장 많이 인용된 거 기준으로 6,5,4,3,2,1 h-index 인지 확인 
+#자기 보다 큰값의 갯수 : 자기보다 작은 값의 갯수 안에 해당 index가 들어가야하고 그중 가장 큰 거
+#6일 때 1개, 5개
+#5일 때 2개, 4개
+#4일 때 2개, 4개
+#3일 때 4개, 2개 ->>> 정답
+
+def solution(citations):
+    answer = 0
+    citations.sort(reverse=True)
+    max_cit = citations[0]
+    for i in range(len(citations),0,-1):  # 6,5,4,3,2,1
+        cnt = 0
+        for j in citations:
+            if j >= i:
+                cnt += 1
+        if cnt >= i and i >= len(citations)-cnt:
+            answer = i
+            break
+            
+    return answer
