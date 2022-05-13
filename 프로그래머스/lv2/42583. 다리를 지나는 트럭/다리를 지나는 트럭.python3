@@ -1,21 +1,25 @@
 from collections import deque
 
 def solution(bridge_length, weight, truck_weights):
-    bridge = deque(0 for _ in range(bridge_length))
-    total_weight = 0
-    step = 0
-    truck_weights.reverse()
+    answer = 1 #경과 시간
+    wait_trucks = deque(truck_weights) #대기 트럭       
+    on_bridge = deque() #다리를 건너고 있는 트럭
+    over_bridge = [] #다리를 지난 트럭
+    weight_on_bridge = 0 #다리 위 무게
 
-    while truck_weights:
-        total_weight -= bridge.popleft()
-        if total_weight + truck_weights[-1] > weight:
-            bridge.append(0)
-        else:
-            truck = truck_weights.pop()
-            bridge.append(truck)
-            total_weight += truck
-        step += 1
+    while over_bridge != truck_weights: #모든 트럭이 다리를 다 지날 때 까지
+        if wait_trucks and weight_on_bridge + wait_trucks[0] <= weight: #다리 위 트럭과 다음 트럭 합이 weight작으면 트럭 출발
+            start_truck = wait_trucks.popleft()
+            weight_on_bridge += start_truck #다리에 무게 트럭 무게 업
 
-    step += bridge_length
+            on_bridge.append((start_truck, answer)) #트럭과 출발시간을 같이 튜플로 묶어 어펜드
 
-    return step
+        answer += 1    
+
+        if on_bridge and answer-on_bridge[0][1] == bridge_length: #트럭 시간이 다 되면 다리에서 나오고 다리 지난 트럭 리스트에 추가
+            over_truck = on_bridge.popleft()
+            weight_on_bridge -= over_truck[0]
+
+            over_bridge.append(over_truck[0])
+
+    return answer
