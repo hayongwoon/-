@@ -1,0 +1,10 @@
+def solution(clothes):
+    answer = 1
+    dic = {}
+    for cloth, type in clothes:    #카테고리 별 갯수 딕셔너리
+        dic[type] = dic.get(type, 0) + 1
+        
+    for i in dic:
+        answer *= dic[i] + 1  # 착용 안한 경우 1을 더해준다.
+    
+    return answer - 1  #아예 아무것도 안한 1 빼준다.
