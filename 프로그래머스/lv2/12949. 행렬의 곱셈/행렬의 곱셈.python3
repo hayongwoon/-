@@ -1,0 +1,12 @@
+def solution(arr1, arr2):
+    answer = []
+    for i in arr1:
+        l = []
+        for j in zip(*arr2):
+            s = 0
+            for k in range(len(i)):
+                s += i[k] * j[k]
+            l.append(s)
+        answer.append(l)
+
+    return answer
