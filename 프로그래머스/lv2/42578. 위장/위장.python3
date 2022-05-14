@@ -1,3 +1,9 @@
+import collections
+
+a = [["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]]
+b = collections.Counter([i for v, i in a])
+print(b)
+
 def solution(clothes):
     answer = 1
     dic = {}
