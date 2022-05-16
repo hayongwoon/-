@@ -1,7 +1,9 @@
 def solution(genres, plays):
-    genre = set(genres)
+    #곡의 아이디를 키값으로 (장르, 재생수) 정보를 갖고있는 딕셔너리 생성
     gen_plays = {idx: val for idx, val in enumerate(zip(plays, genres))}
-
+	
+    #장르 별로 총 노래 재생 수를 구한다. 여기서 key는 재생수 value는 장르 -> 장르 별 재생수가 달라서.
+    genre = set(genres)
     gen_cnt_dic = {}
     for i in genre:
         cnt = 0
@@ -10,20 +12,25 @@ def solution(genres, plays):
                 cnt += plays[idx]
 
         gen_cnt_dic[cnt] = i
-
+	
+    #장르를 재생수 내림차순으로 정렬(어떤 장르가 가장 많이 들은 장르인지 구분하기 위해)
     gen_cnt_keys_list = list(gen_cnt_dic.keys())
     gen_cnt_keys_list.sort(reverse=True)
-
+	
+    #장르 별로 반복문, 곡의 정보를 담고 있는 딕셔너리 이중 반복.
+    #해당하는 장르마다 same_gen 리스트에 넣어서 정렬할 예정. 
+    #정렬 기준은 1.재생수(내림차순) 2.아이디(오름차순) 조건
     answer = []
     for i in gen_cnt_keys_list:
         same_gen = []
         for j in gen_plays:
-            if gen_cnt_dic[i] == gen_plays[j][1]:
-                same_gen.append((gen_plays[j][0], j))
-                
+            if gen_cnt_dic[i] == gen_plays[j][1]: #해당하는 장르인지!
+                same_gen.append((gen_plays[j][0], j)) #(곡의 재생수와 아이디)를 같은 장르 리스트에 추가
+        
+        #같은 장르 별로 정렬하는데, 1. 재생수 2. 아이디 작은 순! 우선순위가 앞에있는 순서를 마지막으로 코드 작성!
         same_gen.sort(key=lambda x: x[1])
         same_gen.sort(key=lambda x: x[0], reverse=True)
         for k in same_gen[:2]:
-            answer.append(k[1])
+            answer.append(k[1]) #맨 앞 두개만 곡 아이디를 answer 리스트에 추가!
 
     return answer
