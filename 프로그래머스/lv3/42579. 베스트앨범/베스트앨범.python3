@@ -28,8 +28,7 @@ def solution(genres, plays):
                 same_gen.append((gen_plays[j][0], j)) #(곡의 재생수와 아이디)를 같은 장르 리스트에 추가
         
         #같은 장르 별로 정렬하는데, 1. 재생수 2. 아이디 작은 순! 우선순위가 앞에있는 순서를 마지막으로 코드 작성!
-        same_gen.sort(key=lambda x: x[1])
-        same_gen.sort(key=lambda x: x[0], reverse=True)
+        same_gen.sort(key=lambda x: (x[0], -x[1]), reverse=True)
         for k in same_gen[:2]:
             answer.append(k[1]) #맨 앞 두개만 곡 아이디를 answer 리스트에 추가!
 
