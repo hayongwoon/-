@@ -1,0 +1,66 @@
+genres = ["classic", "pop", "classic", "classic", "pop"]
+plays = [500, 600, 150, 800, 2500]
+genre = set(genres)
+gen_plays = {idx: val for idx, val in enumerate(zip(plays, genres))}
+
+gen_cnt_dic = {}
+for i in genre:
+    cnt = 0
+    for idx, genre in enumerate(genres):
+        if genre == i:
+            cnt += plays[idx]
+            
+    gen_cnt_dic[cnt] = i
+
+print(gen_cnt_dic)
+gen_cnt_keys_list = list(gen_cnt_dic.keys())
+gen_cnt_keys_list.sort(reverse=True)
+print(gen_cnt_keys_list)
+
+answer = []
+for i in gen_cnt_keys_list:
+    same_gen = []
+    for j in gen_plays:
+        if gen_cnt_dic[i] == gen_plays[j][1]:
+            same_gen.append((gen_plays[j][0], j))
+    same_gen.sort(key=lambda x: x[1])
+    same_gen.sort(key=lambda x: x[0], reverse=True)
+    
+    for k in same_gen[:2]:
+        answer.append(k[1])
+        
+print(answer)
+    
+    
+            
+            
+
+def solution(genres, plays):
+    genre = set(genres)
+    gen_plays = {idx: val for idx, val in enumerate(zip(plays, genres))}
+
+    gen_cnt_dic = {}
+    for i in genre:
+        cnt = 0
+        for idx, genre in enumerate(genres):
+            if genre == i:
+                cnt += plays[idx]
+
+        gen_cnt_dic[cnt] = i
+
+    gen_cnt_keys_list = list(gen_cnt_dic.keys())
+    gen_cnt_keys_list.sort(reverse=True)
+
+    answer = []
+    for i in gen_cnt_keys_list:
+        same_gen = []
+        for j in gen_plays:
+            if gen_cnt_dic[i] == gen_plays[j][1]:
+                same_gen.append((gen_plays[j][0], j))
+                
+        same_gen.sort(key=lambda x: x[1])
+        same_gen.sort(key=lambda x: x[0], reverse=True)
+        for k in same_gen[:2]:
+            answer.append(k[1])
+
+    return answer
