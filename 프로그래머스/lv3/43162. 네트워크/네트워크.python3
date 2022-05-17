@@ -1,0 +1,20 @@
+def dfs_recursive(graph, start, visited = []):
+    visited.append(start)
+    
+    for node in graph[start]:
+        if node not in visited:
+            dfs_recursive(graph, node, visited)
+    return visited
+
+def solution(n, computers):
+    graph = {}
+    for i in range(n):
+        graph[i] = [idx for idx, j in enumerate(computers[i]) if j and idx != i]
+
+    answer = []
+    for i in range(n):
+        link_num = set(dfs_recursive(graph, i, visited = []))
+        if link_num not in answer:
+            answer.append(link_num)
+            
+    return len(answer)
