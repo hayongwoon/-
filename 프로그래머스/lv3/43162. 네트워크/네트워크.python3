@@ -7,10 +7,8 @@ def dfs_recursive(graph, start, visited = []):
     return visited
 
 def solution(n, computers):
-    graph = {}
-    for i in range(n):
-        graph[i] = [idx for idx, j in enumerate(computers[i]) if j and idx != i]
-
+    graph = {i: [idx for idx, j in enumerate(computers[i]) if j and idx != i] for i in range(n)}
+        
     answer = []
     for i in range(n):
         link_num = set(dfs_recursive(graph, i, visited = []))
