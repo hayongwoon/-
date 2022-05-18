@@ -3,22 +3,24 @@ from collections import deque
 def solution(begin, target, words):
     if target not in words:  # 애초에 words리스트에 target값이 없다면 return 0
         return 0
-
+    
     q = deque()
     q.append([begin, 0])
-
-    while q:
-        x, cnt = q.popleft()
-
-        if x == target:
-            return cnt # target값이 되면 cnt 출력
-
-        for i in range(0, len(words)):
+    
+    while q: # bfs 방식으로 모든 연결 조건에 맞게 트리 만들고, 해당하는 층에 cnt를 반환하는 방식
+        w, cnt = q.popleft()
+        
+        if w == target:
+            return cnt
+        
+        for i in range(len(words)): #해당 단어의 한개 글자만 차이나는 글자를 묶어주는 작업
             diff = 0
             word = words[i]
-            for j in range(len(x)):
-                if x[j] != word[j]:
+            for j in range(len(w)): 
+                if w[j] != word[j]: #한개만 다른지 확인하기 위해, 다르면 q에 어펜드
                     diff += 1
             if diff == 1:
                 q.append([word, cnt + 1])
-    return 0 # target값이 있으나 변환될 수 없다면
+                
+    #target이 words에는 있지만, 반환이 안되는 경우    
+    return 0
