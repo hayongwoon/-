@@ -1,0 +1,19 @@
+import heapq
+
+
+def solution(n, works):
+    if sum(works) < n:
+        return 0
+    
+    heap = []
+    for i in works:
+        heapq.heappush(heap, -i)
+
+    for _ in range(n):
+        val = heapq.heappop(heap)
+        val += 1
+        heapq.heappush(heap, val)
+
+    answer = sum(list(map(lambda x: x**2, heap)))
+    
+    return answer
