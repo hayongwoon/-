@@ -1,0 +1,11 @@
+def solution(s):
+    s = s.lower().split(' ')
+    answer = []
+    for i in s:
+        if i:
+            j_word = i.replace(i[0], i[0].upper(), 1)
+            answer.append(j_word)
+        else:
+            answer.append(i)
+    
+    return ' '.join(answer)
