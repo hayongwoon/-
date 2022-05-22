@@ -1,0 +1,11 @@
+def solution(number, k):
+    answer = ''
+    stack = []
+    for i in number:
+        while k and stack and i > stack[-1]:
+            stack.pop()
+            k -= 1
+
+        stack.append(i)
+
+    return answer.join(stack)[:len(stack) - k]
