@@ -13,7 +13,6 @@ def solution(n, a, b):
     right = n
     for _ in range(answer):
         mid = (left + right) // 2
-        print(mid, n)
         if a <= mid and b > mid:  # 가운데를 기준으로 떨어져 있다면
             return answer
 
