@@ -1,0 +1,11 @@
+def solution(n):
+    answer = 0
+    binary_n = bin(n)
+    while 1:
+        n += 1
+        binary_n1 = bin(n)
+        if binary_n1.count('1') == binary_n.count('1'):
+            answer = n
+            break
+
+    return answer
