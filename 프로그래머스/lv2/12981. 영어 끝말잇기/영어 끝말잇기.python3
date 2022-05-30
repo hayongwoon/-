@@ -1,0 +1,11 @@
+def solution(n, words):
+    stack = []
+    for idx, val in enumerate(words):
+        if stack and (val in stack or stack[-1][-1] != val[0]):
+            person = idx % n + 1
+            turn = (idx // n) + 1
+            return [person, turn]
+
+        stack.append(val)
+
+    return [0,0]
