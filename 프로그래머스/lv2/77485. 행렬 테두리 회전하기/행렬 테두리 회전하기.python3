@@ -1,3 +1,7 @@
+# 추출한 값들의 리스트를 반환하는 함수
+# 추출한 값 리스트를 통해 시계 방향으로 바꾼 값으로 변환한 행렬 반환하는 함수
+
+# 해당하는 값들 추출
 def rc_val(rc, query):
     x1 = query[0] - 1
     y1 = query[1] - 1
@@ -31,15 +35,16 @@ def rc_val(rc, query):
 
     return result
 
+# 시계 방향으로 했을 때 바뀐 값들로 바꾼 행렬
 def changing_rc(rc, val_list, query):
     x1 = query[0] - 1
     y1 = query[1] - 1
     x2 = query[2] - 1
     y2 = query[3] - 1
     x, y = x1, y1
-    changed_list = [val_list.pop()] + val_list
+    changed_list = [val_list.pop()] + val_list # 시계 방향으로 값 바꾸기: 첫번째 값만 맨 뒤로 보내면 순서 밀려서 완성
     line = 1
-    for i in changed_list:
+    for i in changed_list: # 해당 행렬 값에 대입! 
         rc[x][y] = i
         if line == 1:
             y += 1
