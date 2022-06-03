@@ -1,0 +1,32 @@
+# oders를 알파벳과 카운트 딕셔너리로 만들어보자 
+import itertools
+import collections
+
+
+def solution(orders, course):
+    for i in range(len(orders)):
+        a=list(orders[i])
+        a.sort()
+        orders[i] = a
+        
+    answer = []
+    for i in course:
+        customers_combi = [] #n번 손님까지의 각 수의 조합 객체가 있는 리스트
+        for order in orders:
+            if len(order) >= i:
+                customers_combi.append(itertools.combinations(order, i))
+
+        d = collections.defaultdict(int)
+        for customer in customers_combi:
+            for combi in customer:
+                d[combi] += 1
+
+        a = [i for i in d if d[i] == max(d.values()) and max(d.values()) >= 2]
+        for i in a:
+            alpha = ''
+            for j in i:
+                alpha+=j
+            answer.append(alpha)
+            
+    answer.sort()
+    return answer
