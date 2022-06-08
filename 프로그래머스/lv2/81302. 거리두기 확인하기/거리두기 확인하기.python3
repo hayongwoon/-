@@ -1,0 +1,45 @@
+#시작점 리스트를 만든다. P값들을 기준으로 bfs를 확인
+#상하좌우를 살펴보면서 해당하는 값이 O, X, P 인지에 따라 조건을 나누고 방문한 노드는 0 -> 1로 처리
+from collections import deque
+
+
+def bfs(place):
+    start_points = [(i, j) for j in range(5) for i in range(5) if place[i][j] == 'P']
+
+    for start_point in start_points:
+        q = deque([start_point]) #패킹해서 넣어줘야 한다.   
+        visited = [[0]*5 for i in range(5)] # 방문 기록
+        distance = [[0]*5 for i in range(5)] # 거리 기록
+        visited[start_point[0]][start_point[1]] = 1
+
+        #해당 시작점에서 주변의 P가 없는지 확인
+        while q:
+            y, x = q.popleft()
+            #상하좌우
+            dx = [-1, 1, 0, 0]
+            dy = [0, 0, -1, 1]
+            
+            #시작점 기준으로 상하좌우의 노드를 확인
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+
+                if 0<=nx<5 and 0<=ny<5 and visited[ny][nx] == 0: #방문하지 않는 노드이면서 범위 안에 있을 때,
+                    if place[ny][nx] == 'O': #그리고 그 노드가 비어 있을 때
+                        visited[ny][nx] = 1
+                        q.append([ny, nx])
+                        distance[ny][nx] = distance[y][x] + 1 #시작점으로부터 거리를 더한다.
+
+                    elif place[ny][nx] == 'P'  and distance[y][x] <= 1: #그리고 그 노드에 사람이 있을 때
+                        return  0
+
+    return 1
+
+
+def solution(places):
+    answer = []
+    
+    for i in places:
+        answer.append(bfs(i))
+    
+    return answer
