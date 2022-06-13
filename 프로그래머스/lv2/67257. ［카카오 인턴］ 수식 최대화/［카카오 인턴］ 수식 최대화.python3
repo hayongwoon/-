@@ -1,0 +1,50 @@
+#expression을 숫자와 연산자로 나눈다.
+from collections import deque
+import re
+
+# stack = [] 연산자 반복문 돌리고 어펜드 만약 우선순위에 해당하면 스택에 어팬드 안하고
+def calculate_expression(nums, cals, priority_cal):
+    nums = deque(nums)
+    cals = deque(cals)
+    
+    for p in priority_cal:
+        for _ in range(len(cals)):
+            cal = cals.popleft()
+            num = nums.popleft()
+            if cal == p: #해당 연산자일 때
+                next_num = nums.popleft()
+                nums.appendleft(str(eval(num + p + next_num)))
+
+            else: #해당 연산자가 아닐 때,
+                nums.append(num)
+                cals.append(cal)
+            
+        nums.append(nums.popleft())
+                
+
+
+    return abs(int(nums[0]))
+# nums = ['100','200','300','500','20']
+# cals = ['-','*','-','+']
+# priority_cal = ['-','+','*']
+# print(calculate_expression(nums, cals, priority_cal))
+        
+def solution(expression):
+    priority_cals = [['*','+','-'],
+               ['*','-','+'],
+               ['+','*','-'],
+               ['+','-','*'],
+               ['-','+','*'],
+               ['-','*','+']]
+    
+    numbers = re.findall(r'\d+', expression)
+    cals = re.findall(r'[^0-9]', expression)
+    
+    answer = 0
+    for p in priority_cals:
+        answer = max(answer, calculate_expression(numbers, cals, p))
+    
+    return answer
+
+expression = "100-200*300-500+20"
+print(solution(expression))
