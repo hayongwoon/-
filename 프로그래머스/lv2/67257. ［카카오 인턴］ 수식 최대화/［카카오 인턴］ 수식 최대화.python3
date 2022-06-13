@@ -13,16 +13,19 @@ def calculate_expression(nums, cals, priority_cal):
             num = nums.popleft()
             if cal == p: #해당 연산자일 때
                 next_num = nums.popleft()
-                nums.appendleft(str(eval(num + p + next_num)))
+                if p == '+':
+                    nums.appendleft(str(int(num) + int(next_num)))
+                if p == '-':
+                    nums.appendleft(str(int(num) - int(next_num)))
+                if p == '*':
+                    nums.appendleft(str(int(num) * int(next_num)))
 
             else: #해당 연산자가 아닐 때,
                 nums.append(num)
                 cals.append(cal)
             
-        nums.append(nums.popleft())
+        nums.append(nums.popleft()) # 마지막 숫자에 대한 처리
                 
-
-
     return abs(int(nums[0]))
 # nums = ['100','200','300','500','20']
 # cals = ['-','*','-','+']
@@ -45,6 +48,3 @@ def solution(expression):
         answer = max(answer, calculate_expression(numbers, cals, p))
     
     return answer
-
-expression = "100-200*300-500+20"
-print(solution(expression))
