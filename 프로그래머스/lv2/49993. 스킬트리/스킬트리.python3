@@ -8,9 +8,9 @@ def correct_skill_set(skill, skill_tree):
         for s in skill_tree:
             if s in skill:
                 if s == next_skill:
-                    try:
+                    if q_skill:
                         next_skill = q_skill.popleft()
-                    except:
+                    else:
                         break
                 else:
                     return False
