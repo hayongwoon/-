@@ -20,11 +20,7 @@ def correct_skill_set(skill, skill_tree):
                     
     return True
 
-skill = "CBD"
-skill_tree = "ZXC"
-print(correct_skill_set(skill, skill_tree))
         
-
 def solution(skill, skill_trees):
     answer = 0
     for skll_tree in skill_trees:

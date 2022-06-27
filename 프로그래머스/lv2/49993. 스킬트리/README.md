@@ -1,6 +1,6 @@
 # [level 2] 스킬트리 - 49993 
 
-[문제 링크](https://programmers.co.kr/learn/courses/30/lessons/49993) 
+[문제 링크](https://programmers.co.kr/learn/courses/30/lessons/49993?language=python3) 
 
 ### 성능 요약
 
