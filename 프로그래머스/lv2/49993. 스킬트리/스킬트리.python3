@@ -1,30 +1,14 @@
-from collections import deque
-
-
-def correct_skill_set(skill, skill_tree):
-    q_skill = deque(skill)
-    while q_skill:
-        next_skill = q_skill.popleft()
-        for s in skill_tree:
-            if s in skill:
-                if s == next_skill:
-                    try:
-                        next_skill = q_skill.popleft()
-                    except:
-                        break
-                else:
-                    return False
-                
-        else:
-            break
-                    
-    return True
-
-        
 def solution(skill, skill_trees):
     answer = 0
-    for skll_tree in skill_trees:
-        if correct_skill_set(skill, skll_tree):
+
+    for skills in skill_trees:
+        skill_list = list(skill)
+
+        for s in skills:
+            if s in skill:
+                if s != skill_list.pop(0):
+                    break
+        else:
             answer += 1
-            
+
     return answer
