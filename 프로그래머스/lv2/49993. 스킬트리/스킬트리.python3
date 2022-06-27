@@ -1,0 +1,34 @@
+from collections import deque
+
+
+def correct_skill_set(skill, skill_tree):
+    q_skill = deque(skill)
+    while q_skill:
+        next_skill = q_skill.popleft()
+        for s in skill_tree:
+            if s in skill:
+                if s == next_skill:
+                    try:
+                        next_skill = q_skill.popleft()
+                    except:
+                        break
+                else:
+                    return False
+                
+        else:
+            break
+                    
+    return True
+
+skill = "CBD"
+skill_tree = "ZXC"
+print(correct_skill_set(skill, skill_tree))
+        
+
+def solution(skill, skill_trees):
+    answer = 0
+    for skll_tree in skill_trees:
+        if correct_skill_set(skill, skll_tree):
+            answer += 1
+            
+    return answer
