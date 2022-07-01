@@ -1,10 +1,2 @@
 def solution(numbers):
-    answer = -1
-    
-    a_list = list(range(10)) #[0,1,2,3...9]
-    print(a_list)
-    for i in numbers:
-        if i in a_list: 
-            a_list.remove(i)
-    answer = sum(a_list)
-    return answer
+    return sum(range(10)) - sum(numbers)
