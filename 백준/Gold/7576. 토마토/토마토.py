@@ -12,22 +12,11 @@ def bfs(graph, q):
             nx = x + dx[i]
             ny = y + dy[i]
             
-            if 0<=nx<len(graph[0]) and 0<=ny<len(graph) and graph[ny][nx] == 0:
+            if 0<=nx<len(graph[0]) and 0<=ny<len(graph) and not graph[ny][nx]:
                 graph[ny][nx] = graph[y][x] + 1
                 q.append((ny, nx))
 
     return graph
-
-m, n = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(n)]
-
-q = deque()
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] == 1:
-            q.append((i,j))
-
-result_graph = bfs(graph, q)
 
 def solution(result_graph):
     answer = 0
@@ -40,4 +29,14 @@ def solution(result_graph):
 
     return answer - 1
 
+m, n = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(n)]
+
+q = deque()
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 1:
+            q.append((i,j))
+
+result_graph = bfs(graph, q)
 print(solution(result_graph))
