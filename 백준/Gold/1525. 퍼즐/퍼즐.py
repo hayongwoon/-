@@ -39,4 +39,4 @@ for _ in range(3):
 start_num = start_num.replace(" ", "")
 
 result = bfs(start_num)
-print(result if result != None else "-1" )
+print(result if result != None else -1 )
