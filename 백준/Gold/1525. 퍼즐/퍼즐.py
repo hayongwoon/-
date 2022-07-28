@@ -1,60 +1,42 @@
-import sys
-from collections import deque
+from collections import deque, defaultdict
 
-# 상, 하, 좌, 우
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
 
-def bfs():
+def bfs(start_num):
+    cnt_dict = defaultdict(int)
+    q = deque()
+    q.append(start_num)
+
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
 
     while q:
-        now = q.popleft()
+        cur_num = q.popleft()
 
-        # 만족하는 퍼즐일 경우 이동횟수 리턴
-        if now == "123456789":
-            return cntDict[now]
+        if cur_num == '123456780':
+            return cnt_dict[cur_num]
 
-        # 현재 빈칸 위치 (행, 열) 
-        pos = now.find("9")
-        x = pos // 3
-        y = pos % 3
-
+        zero_idx = cur_num.find('0')
+        zero_x = zero_idx // 3
+        zero_y = zero_idx % 3
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+            zero_nx = zero_x + dx[i]
+            zero_ny = zero_y + dy[i]
 
-            if 0 <= nx < 3 and 0 <= ny < 3:
-                # 이동할 위치
-                nPos = nx * 3 + ny
-                # 이동된 상태 설정
-                nextNum = list(now)
-                nextNum[nPos], nextNum[pos] = nextNum[pos], nextNum[nPos]
-                nextNum = "".join(nextNum)
-
-                if not cntDict.get(nextNum):
-                    # 이동된 상태 저장, 이동횟수 + 1
-                    q.append(nextNum)
-                    cntDict[nextNum] = cntDict[now] + 1
-
-
-# 초기 퍼즐 상태
-start = ""
+            if 0<=zero_nx<3 and 0<=zero_ny<3:
+                next_zero_idx = (zero_nx * 3) + zero_ny
+                next_num = list(cur_num)
+                next_num[zero_idx], next_num[next_zero_idx] = next_num[next_zero_idx], next_num[zero_idx]
+                next_num = ''.join(next_num)
+                
+                if not cnt_dict[next_num]:
+                    cnt_dict[next_num] = cnt_dict[cur_num] + 1
+                    q.append(next_num)
+                
+            
+start_num = ''
 for _ in range(3):
-    # 입력 -> 123456780 형태로 변환
-    temp = sys.stdin.readline().strip()
-    temp = temp.replace(" ", "")
-    start += temp
+    start_num += input()
+start_num = start_num.replace(" ", "")
 
-start = start.replace("0", "9")
-
-# 이동된 상태 저장
-q = deque()
-q.append(start)
-
-# 이동된 상태, 이동횟수 저장
-cntDict = dict()
-cntDict[start] = 0
-
-# 이동이 불가하면 "-1"을 출력
-result = bfs()
+result = bfs(start_num)
 print(result if result != None else "-1" )
