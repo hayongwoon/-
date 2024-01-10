@@ -1,52 +1,41 @@
-from collections import deque, defaultdict
+from collections import deque
 
-
-def bfs(graph, start_node):
-    if not graph[start_node[0]][start_node[1]]:
-        return False
-
+# maps, start를 인자로 넣으면 start와 주변 모든 1 -> 0 로 변환
+def bfs(maps, start=[0,0]):
     q = deque()
-    q.append(start_node)
-    graph[start_node[0]][start_node[1]] = 0
+    q.append(start)
+    maps[start[0]][start[1]] = 0
 
-    dx = [-1,1,0,0]
-    dy = [0,0,-1,1]
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
 
     while q:
-        current_y, current_x = q.popleft()
-
+        y, x = q.popleft()
         for i in range(4):
-            nx = current_x + dx[i]
-            ny = current_y + dy[i]
-
-            if 0 <= ny < len(graph) and 0 <= nx < len(graph[0]) and graph[ny][nx]:
-                graph[ny][nx] = 0
-                q.append((ny,nx))
-                
-    return True
-
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < m and 0 <= ny < n and maps[ny][nx] == 1:
+                maps[ny][nx] = 0
+                q.append([ny, nx])
+    return maps
 
 t = int(input())
+answer = []
 for _ in range(t):
-    m, n, cabbage_num = map(int, input().split())
+    m, n, k= map(int, input().split())
+    # 스텝 1: 양배추 for문으로 maps 업데이트
+    cabages = [list(map(int, input().split())) for _ in range(k)]
+    maps = [[0]*m for _ in range(n)]
+    for x in cabages:
+        maps[x[1]][x[0]] = 1
 
-    xy_points_list = []
-    for _ in range(cabbage_num):
-        x, y = map(int, input().split())
-        xy_points_list.append((x,y))
+    result = 0
+    for i in range(n):
+        for j in range(m):
+            if maps[i][j] == 1:
+                bfs(maps, [i, j])
+                result += 1
+    answer.append(result)
 
-
-    graph = [[0]*n for _ in range(m)]
-    for i in range(m):
-        for j in range(n):
-            if (i,j) in xy_points_list:
-                graph[i][j] = 1
-
-    cnt = 0
-    for i in range(len(graph)):
-        for j in range(len(graph[0])):
-            result = bfs(graph, (i,j))
-            if result:
-                cnt += 1
-
-    print(cnt)
+for x in answer:
+    print(x)
