@@ -1,15 +1,7 @@
 from collections import deque
 import copy
 
-
-def bfs():
-    q = deque()
-    temp_graph = copy.deepcopy(graph)
-    for i in range(len(graph)):
-        for j in range(len(graph[0])):
-            if temp_graph[i][j] == 2:
-                q.append([i, j])
-
+def bfs(graph, q: deque):
     dx = [-1, 1, 0, 0]
     dy = [0, 0, -1, 1]
     while q:
@@ -17,23 +9,30 @@ def bfs():
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0<=nx<len(graph[0]) and 0<=ny<len(graph) and temp_graph[ny][nx] == 0:
-                temp_graph[ny][nx] = 2
+            if 0<=nx<len(graph[0]) and 0<=ny<len(graph) and graph[ny][nx] == 0:
+                graph[ny][nx] = 2
                 q.append([ny, nx])
     
     global answer
     cnt = 0 
     for i in range(len(graph)):
         for j in range(len(graph[0])):
-            if temp_graph[i][j] == 0:
+            if graph[i][j] == 0:
                 cnt += 1
     answer = max(answer, cnt)
 
 
 def make_wall(cnt):
     if cnt == 3:
-        bfs()
+        temp_graph = copy.deepcopy(graph)
+        q = deque()
+        for i in range(len(graph)):
+            for j in range(len(graph[0])):
+                if temp_graph[i][j] == 2:
+                    q.append([i, j])
+        bfs(temp_graph, q)
         return
+
     for i in range(len(graph)):
         for j in range(len(graph[0])):
             if graph[i][j] == 0:
